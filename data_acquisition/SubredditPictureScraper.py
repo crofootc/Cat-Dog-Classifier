@@ -2,7 +2,7 @@
 """
 Created on Thu Jan  2 16:15:50 2020
 
-@author: A01836024
+@author: Cody Crofoot
 """
 
 import urllib.request
