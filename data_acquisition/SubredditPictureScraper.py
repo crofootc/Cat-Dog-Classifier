@@ -10,8 +10,6 @@ import os
 import math
 import json
 import requests
-import itertools
-import numpy as np
 import time
 from datetime import datetime, timedelta
 
