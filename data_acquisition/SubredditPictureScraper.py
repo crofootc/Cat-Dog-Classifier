@@ -119,6 +119,12 @@ class SubredditPictureScraper:
                 count += 1
             
             print(f"Processed {count} images")
+
+        def save_url(self, name="url.txt"):
+            with open(name, 'w') as f:
+                for url in self.urls:
+                    f.write("%s\n" % url)
+
             
 #if __name__ == "__main__": 
 #    print("Not intended to be a standalone module")
