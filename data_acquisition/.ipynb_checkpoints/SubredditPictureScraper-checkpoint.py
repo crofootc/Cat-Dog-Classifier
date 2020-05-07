@@ -92,7 +92,10 @@ class SubredditPictureScraper:
             print(f"Saving max of {image_limit} images from urls")
             folder = os.path.dirname(__file__) + "\\" + foldername
             count = 0            
-            
+            files_added = 0
+            bad_files = 0
+            start = time.time()
+                        
             if not os.path.isdir(folder):
                 print("MAKNG DIRECTORY: " + folder)
                 os.mkdir(folder)
@@ -105,18 +108,26 @@ class SubredditPictureScraper:
                 if url.rsplit('.')[-1] in self.PIC_EXTENSIONS:
                     if verbose:
                         print(url)
+                    if count % 1000 == 0:
+                        print(f'Count: {count} || time: {(time.time()-start)/60 : .2f} minutes')
                     if not os.path.exists(folder + "\\" + url.rsplit('/', 1)[-1]):
                         try:
-                            urllib.request.urlretrieve(url,
-                                                       folder + "\\" + url.rsplit('/', 1)[-1])
+                            urllib.request.urlretrieve(url, folder + "\\" + url.rsplit('/', 1)[-1])
+                            files_added += 1
+                              
                         except:
-                            print("BAD FILENAME")
-                elif verbose:
-                    print("BAD FILENAME")
+                            if verbose:
+                                print(f"BAD FILENAME: {url}")
+                            bad_files += 1
                     
                 count += 1
             
-            print(f"Processed {count} images")
+            print("FINISHED")                  
+            print(f"TOTAL TIME: {(time.time()-start)/60: .2f} minutes" )                  
+            print(f"PROCESSED {count} images")
+            print(f"FILES_ADDED: {files_added}")
+            print(f"BAD_FILES: {bad_files}")
+            
 
         def save_url(self, name="url.txt"):
             with open(name, 'w') as f:
